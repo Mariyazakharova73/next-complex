@@ -1,4 +1,4 @@
-import { CartProduct } from '@/types/types';
+import { CartProduct } from '../types/types';
 import { CART_LOCALSTORAGE_KEY } from '../utils/constants';
 
 export const getTitle = (str: string) => {

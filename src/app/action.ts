@@ -1,6 +1,6 @@
 'use server';
 
-import { BASE_URL } from '@/utils/constants';
+import { BASE_URL } from '../utils/constants';
 
 const pageSize = 6;
 

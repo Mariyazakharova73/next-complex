@@ -1,5 +1,5 @@
-import { getText, getTitle } from '@/helpers/helpers';
-import { Review } from '@/types/types';
+import { getText, getTitle } from '../../helpers/helpers';
+import { Review } from '../../types/types';
 import { getReviews } from '../../app/action';
 import s from './Reviews.module.css';
 
