@@ -1,13 +1,12 @@
 'use client';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import cn from 'classnames';
 import { ChangeEvent, FormEvent } from 'react';
 import { dec, inc, setCount } from '../../lib/features/cartSlice';
 import { getCartProduct } from '../../lib/features/selectors';
+import { useAppDispatch, useAppSelector } from '../../lib/hooks';
 import { Product } from '../../types/types';
 import Button from '../Button/Button';
 import s from './ProductCard.module.css';
-import { fetchOrder } from '@/lib/features/fetchOrder';
 
 export interface ProductCardProps {
 	product: Product;
@@ -15,7 +14,7 @@ export interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
 	const cartProducts = useAppSelector(getCartProduct);
-	
+
 	const selectedProduct = cartProducts.find(p => p.id === product.id);
 
 	const dispatch = useAppDispatch();
@@ -40,7 +39,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		
 	};
 
 	return (
@@ -78,7 +76,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
 				)}
 			</div>
 		</li>
-		
 	);
 };
 

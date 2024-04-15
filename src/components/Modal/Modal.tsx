@@ -1,9 +1,9 @@
 import cn from 'classnames';
 import { PropsWithChildren } from 'react';
-import Overlay from '../Overlay/Overlay';
-import s from './Modal.module.css';
 import { useModal } from '../../hooks/useModal';
+import Overlay from '../Overlay/Overlay';
 import Portal from '../Portal/Portal';
+import s from './Modal.module.css';
 
 export interface ModalProps {
 	className?: string;
@@ -36,9 +36,7 @@ const Modal = (props: PropsWithChildren<ModalProps>) => {
 		<Portal>
 			<div className={cn(s.Modal, className, mods)}>
 				<Overlay onClick={close} />
-				<div className={s.content} role='button' tabIndex={0}>
-					{children}
-				</div>
+				<div className={s.content}>{children}</div>
 			</div>
 		</Portal>
 	);

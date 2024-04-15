@@ -51,7 +51,6 @@
 	.item {
 		gap: 14px;
 		justify-content: space-between;
-		
 	}
 }
 
@@ -73,7 +72,6 @@
 @media (max-width: 1024px) {
 	.wrapper {
 		flex-direction: column;
-		
 	}
 }
 

@@ -1,5 +1,5 @@
-import { useAppSelector } from '@/lib/hooks';
 import Image from 'next/image';
+import { useAppSelector } from '../../lib/hooks';
 import fail from '../../assets/fail.png';
 import spinner from '../../assets/spinner.svg';
 import success from '../../assets/success.png';

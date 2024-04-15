@@ -25,6 +25,6 @@ export interface ErrorResponse {
 }
 
 export interface Order {
-	phone: string,
-	cart: CartProduct[]
+	phone: string;
+	cart: CartProduct[];
 }

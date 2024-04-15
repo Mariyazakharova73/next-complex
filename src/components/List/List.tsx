@@ -1,4 +1,4 @@
-import { Product } from '@/types/types';
+import { Product } from '../../types/types';
 import ProductCard from '../ProductCard/ProductCard';
 import s from './List.module.css';
 

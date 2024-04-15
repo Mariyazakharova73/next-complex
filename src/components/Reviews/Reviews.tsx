@@ -1,8 +1,7 @@
+import { getText, getTitle } from '@/helpers/helpers';
 import { Review } from '@/types/types';
 import { getReviews } from '../../app/action';
 import s from './Reviews.module.css';
-import { getText, getTitle } from '@/helpers/helpers';
-
 
 const Reviews = async () => {
 	const reviewsData = await getReviews();

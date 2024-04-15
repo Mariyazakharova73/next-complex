@@ -34,15 +34,15 @@
 	line-height: 29.05px;
 	color: inherit;
 
-	overflow: hidden; /* Обрезаем все, что не помещается в область */
+	overflow: hidden;
 	text-overflow: ellipsis;
 	word-break: break-all;
 	margin-top: 5px;
 
-	-webkit-line-clamp: 8; /* Число отображаемых строк */
-	display: -webkit-box; /* Включаем флексбоксы */
-	-webkit-box-orient: vertical; /* Вертикальная ориентация */
-	overflow: hidden; /* Обрезаем всё за пределами блока */
+	-webkit-line-clamp: 8;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 }
 
 .price {

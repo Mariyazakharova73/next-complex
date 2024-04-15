@@ -1,8 +1,8 @@
 'use client';
-import { editNumber } from '@/helpers/helpers';
 import cn from 'classnames';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { getCartProduct, getPhoneNumber } from '../..//lib/features/selectors';
+import { editNumber } from '../../helpers/helpers';
 import { setNumber } from '../../lib/features/cartSlice';
 import { fetchOrder } from '../../lib/features/fetchOrder';
 import { useAppDispatch, useAppSelector } from '../../lib/hooks';
@@ -12,9 +12,8 @@ import {
 	PHONE_MASK,
 } from '../../utils/constants';
 import Button from '../Button/Button';
-import Modal from '../Modal/Modal';
-import s from './Cart.module.css';
 import CartModal from '../CartModal/CartModal';
+import s from './Cart.module.css';
 
 const Cart = () => {
 	const [isValid, setIsValid] = useState(false);
@@ -32,7 +31,6 @@ const Cart = () => {
 		setIsValid(e.target.closest('.form').checkValidity());
 
 		localStorage.setItem(NUMBER_LOCALSTORAGE_KEY, number);
-
 		dispatch(setNumber(number));
 
 		if (number.length <= 2) {
@@ -93,7 +91,7 @@ const Cart = () => {
 					</Button>
 				</form>
 			</section>
-			<CartModal isOpenModal={isOpenModal} closeModal={closeModal}/>
+			<CartModal isOpenModal={isOpenModal} closeModal={closeModal} />
 		</>
 	);
 };
