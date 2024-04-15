@@ -7,6 +7,7 @@ import { getCartProduct } from '../../lib/features/selectors';
 import { Product } from '../../types/types';
 import Button from '../Button/Button';
 import s from './ProductCard.module.css';
+import { fetchOrder } from '@/lib/features/fetchOrder';
 
 export interface ProductCardProps {
 	product: Product;
@@ -39,6 +40,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		
 	};
 
 	return (
@@ -76,6 +78,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 				)}
 			</div>
 		</li>
+		
 	);
 };
 

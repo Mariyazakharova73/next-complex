@@ -73,6 +73,7 @@
 @media (max-width: 1024px) {
 	.wrapper {
 		flex-direction: column;
+		
 	}
 }
 
@@ -98,6 +99,7 @@
 @media (max-width: 1024px) {
 	.input {
 		width: 310px;
+		font-size: 30px;
 	}
 }
 

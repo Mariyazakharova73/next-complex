@@ -68,3 +68,7 @@ export const editNumber = (value: string) => {
 	}
 	return editedPhone;
 };
+
+export const getShortNumber = (num: string) => {
+	return num.replace(/\D/g, '');
+};

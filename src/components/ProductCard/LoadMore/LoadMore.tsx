@@ -34,7 +34,6 @@ function LoadMore() {
 						alt='Spinner.'
 						width={100}
 						height={100}
-						className={s.image}
 					/>
 				</div>
 			</section>

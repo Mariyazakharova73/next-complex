@@ -1,0 +1,40 @@
+.modal {
+	width: 500px;
+	height: 500px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: center;
+	justify-content: center;
+}
+
+@media (max-width: 767px) {
+	.modal {
+		width: 300px;
+		height: 300px;
+	}
+}
+
+@media (max-width: 425px) {
+	.modal {
+		width: 250px;
+		height: 250px;
+	}
+}
+
+.img {
+	width: 200px;
+	height: 200px;
+}
+
+@media (max-width: 767px) {
+	.img {
+		width: 100px;
+		height: 100px;
+	}
+}
+
+.text {
+	color: var(--main-color);
+	z-index: 100;
+}

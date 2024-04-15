@@ -1,9 +1,10 @@
 'use client';
 import { editNumber } from '@/helpers/helpers';
 import cn from 'classnames';
-import { useEffect, useRef, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { getCartProduct, getPhoneNumber } from '../..//lib/features/selectors';
 import { setNumber } from '../../lib/features/cartSlice';
+import { fetchOrder } from '../../lib/features/fetchOrder';
 import { useAppDispatch, useAppSelector } from '../../lib/hooks';
 import {
 	CART_LOCALSTORAGE_KEY,
@@ -11,7 +12,9 @@ import {
 	PHONE_MASK,
 } from '../../utils/constants';
 import Button from '../Button/Button';
+import Modal from '../Modal/Modal';
 import s from './Cart.module.css';
+import CartModal from '../CartModal/CartModal';
 
 const Cart = () => {
 	const [isValid, setIsValid] = useState(false);
@@ -21,7 +24,7 @@ const Cart = () => {
 	const isEmptyCart = cartProducts.length === 0;
 	const dispatch = useAppDispatch();
 
-	console.log(isValid);
+	const [isOpenModal, setIsOpenModal] = useState(false);
 
 	const handlePhoneNumberChange = (e: any) => {
 		const number = editNumber(e.target.value);
@@ -31,10 +34,20 @@ const Cart = () => {
 		localStorage.setItem(NUMBER_LOCALSTORAGE_KEY, number);
 
 		dispatch(setNumber(number));
+
+		if (number.length <= 2) {
+			localStorage.removeItem(NUMBER_LOCALSTORAGE_KEY);
+		}
 	};
 
-	const handleSubmit = (e: any) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		dispatch(fetchOrder());
+		setIsOpenModal(true);
+	};
+
+	const closeModal = () => {
+		setIsOpenModal(false);
 	};
 
 	useEffect(() => {
@@ -46,39 +59,42 @@ const Cart = () => {
 	}, [cartProducts]);
 
 	return (
-		<section className={s.cart}>
-			<h2 className={s.title}>Добавленные товары</h2>
-			{!isEmptyCart ? (
-				<ul className={s.list}>
-					{cartProducts.map(p => {
-						return (
-							<li className={s.item} key={p.id}>
-								<p className={s.productTitle}>{p.title}</p>
-								<p>{`x${p.count} ${p.count * p.price}₽`}</p>
-							</li>
-						);
-					})}
-				</ul>
-			) : (
-				<p className={s.emptyCart}>Корзина пуста</p>
-			)}
-			<form className={cn(s.wrapper, 'form')} onSubmit={handleSubmit}>
-				<input
-					className={s.input}
-					type='tel'
-					pattern='[\+]\d{1}\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}'
-					minLength={18}
-					maxLength={18}
-					required
-					value={phoneNumber}
-					onChange={handlePhoneNumberChange}
-					placeholder={PHONE_MASK}
-				/>
-				<Button className={s.button} disabled={isEmptyCart}>
-					заказать
-				</Button>
-			</form>
-		</section>
+		<>
+			<section className={s.cart}>
+				<h2 className={s.title}>Добавленные товары</h2>
+				{!isEmptyCart ? (
+					<ul className={s.list}>
+						{cartProducts.map(p => {
+							return (
+								<li className={s.item} key={p.id}>
+									<p className={s.productTitle}>{p.title}</p>
+									<p>{`x${p.count} ${p.count * p.price}₽`}</p>
+								</li>
+							);
+						})}
+					</ul>
+				) : (
+					<p className={s.emptyCart}>Корзина пуста</p>
+				)}
+				<form className={cn(s.wrapper, 'form')} onSubmit={handleSubmit}>
+					<input
+						className={s.input}
+						type='tel'
+						pattern='[\+]\d{1}\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}'
+						minLength={18}
+						maxLength={18}
+						required
+						value={phoneNumber}
+						onChange={handlePhoneNumberChange}
+						placeholder={PHONE_MASK}
+					/>
+					<Button className={s.button} disabled={isEmptyCart}>
+						заказать
+					</Button>
+				</form>
+			</section>
+			<CartModal isOpenModal={isOpenModal} closeModal={closeModal}/>
+		</>
 	);
 };
 
