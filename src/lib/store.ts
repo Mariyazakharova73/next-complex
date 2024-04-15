@@ -1,15 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import cartReducer, { CartState } from './features/cartSlice';
-import productsReducer, { ProductsState } from './features/productsSlice';
 
 export interface StateSchema {
-	cartReducer: CartState,
-	productsReducer: ProductsState
+	cartReducer: CartState;
 }
 
 export const makeStore = () => {
 	return configureStore({
-		reducer: { cartReducer, productsReducer },
+		reducer: { cartReducer },
 	});
 };
 

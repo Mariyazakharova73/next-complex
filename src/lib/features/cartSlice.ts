@@ -1,20 +1,68 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { getCartFromLS, getTotalPrice } from '../..//helpers/helpers';
+import { CartProduct, Product } from '../../types/types';
 
 export interface CartState {
-	value: number;
+	totalPrice: number;
+	products: CartProduct[];
+	phoneNumber: string;
 }
 
-const initialState: CartState = { value: 0 };
+const { cartProducts, totalPrice } = getCartFromLS();
+
+const initialState: CartState = {
+	totalPrice: totalPrice,
+	products: cartProducts,
+	phoneNumber: '',
+};
 
 const cartSlice = createSlice({
 	name: 'cart',
 	initialState,
 	reducers: {
-		increment(state) {
-			state.value++;
+		inc(state, action: PayloadAction<Product>) {
+			const findItem = state.products.find(
+				item => item.id === action.payload.id
+			);
+			if (findItem) {
+				findItem.count++;
+			} else {
+				state.products.push({ ...action.payload, count: 1 });
+			}
+			state.totalPrice = getTotalPrice(state.products);
+		},
+
+		dec(state, action: PayloadAction<Product | CartProduct>) {
+			const findItem = state.products.find(
+				item => item.id === action.payload.id
+			);
+			if (findItem) {
+				findItem.count--;
+			}
+
+			if (findItem?.count === 0) {
+				state.products = state.products.filter(
+					item => item.id !== action.payload.id
+				);
+			}
+			state.totalPrice = getTotalPrice(state.products);
+		},
+		setCount(state, action: PayloadAction<CartProduct>) {
+			state.products = state.products.map(item => {
+				if (item.id === action.payload.id) {
+					return { ...item, count: action.payload.count };
+				}
+				return item;
+			});
+
+			state.totalPrice = getTotalPrice(state.products);
+		},
+
+		setNumber(state, action: PayloadAction<string>) {
+			state.phoneNumber = action.payload;
 		},
 	},
 });
 
-export const { increment } = cartSlice.actions;
+export const { inc, dec, setCount, setNumber } = cartSlice.actions;
 export default cartSlice.reducer;

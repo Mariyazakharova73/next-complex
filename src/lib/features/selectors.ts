@@ -1,6 +1,7 @@
 import { StateSchema } from '../store';
 
-export const getPageNumber = (state: StateSchema) => state.productsReducer.page;
+export const getCartProduct = (state: StateSchema) =>
+	state.cartReducer.products;
 
-export const getPageHasMore = (state: StateSchema) =>
-	state.productsReducer.hasMore;
+export const getTotalPrice = (state: StateSchema) =>
+	state.cartReducer.totalPrice;
