@@ -40,7 +40,7 @@
 
 #### Установка и запуск приложения
 
-Клонировать репозиторий:
+Клонировать репозиторий (версия node.js v20.11.1):
 
     git clone https://github.com/Mariyazakharova73/next-complex.git
 
