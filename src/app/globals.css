@@ -1,0 +1,39 @@
+:root {
+	--main-color: #000000;
+	--text-color: #f0f0f0;
+	--bg-title: #777777;
+	--card-bg: #d9d9d9;
+	--border-radius: 15px;
+	--button-color: #222222;
+}
+
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+html,
+body {
+	max-width: 100vw;
+	overflow-x: hidden;
+}
+
+body {
+	background: var(--main-color);
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.page {
+	font-style: normal;
+	min-width: 320px;
+	max-width: 1920px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+
