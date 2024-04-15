@@ -14,6 +14,7 @@ export interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
 	const cartProducts = useAppSelector(getCartProduct);
+	
 	const selectedProduct = cartProducts.find(p => p.id === product.id);
 
 	const dispatch = useAppDispatch();

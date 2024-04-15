@@ -1,27 +1,46 @@
 'use client';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { getCartProduct } from '../..//lib/features/selectors';
+import { editNumber } from '@/helpers/helpers';
+import cn from 'classnames';
+import { useEffect, useRef, useState } from 'react';
+import { getCartProduct, getPhoneNumber } from '../..//lib/features/selectors';
 import { setNumber } from '../../lib/features/cartSlice';
 import { useAppDispatch, useAppSelector } from '../../lib/hooks';
+import {
+	CART_LOCALSTORAGE_KEY,
+	NUMBER_LOCALSTORAGE_KEY,
+	PHONE_MASK,
+} from '../../utils/constants';
 import Button from '../Button/Button';
 import s from './Cart.module.css';
 
 const Cart = () => {
+	const [isValid, setIsValid] = useState(false);
 	const cartProducts = useAppSelector(getCartProduct);
-	const [phoneNumber, setPhoneNumber] = useState('');
+	const phoneNumber = useAppSelector(getPhoneNumber);
 	const isMounted = useRef(false);
 	const isEmptyCart = cartProducts.length === 0;
 	const dispatch = useAppDispatch();
-	
-	const handlePhoneNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
-		dispatch(setNumber(e.target.value));
-		console.log(e.target.value);
+
+	console.log(isValid);
+
+	const handlePhoneNumberChange = (e: any) => {
+		const number = editNumber(e.target.value);
+
+		setIsValid(e.target.closest('.form').checkValidity());
+
+		localStorage.setItem(NUMBER_LOCALSTORAGE_KEY, number);
+
+		dispatch(setNumber(number));
+	};
+
+	const handleSubmit = (e: any) => {
+		e.preventDefault();
 	};
 
 	useEffect(() => {
 		if (isMounted.current) {
 			const json = JSON.stringify(cartProducts);
-			localStorage.setItem('cart', json);
+			localStorage.setItem(CART_LOCALSTORAGE_KEY, json);
 		}
 		isMounted.current = true;
 	}, [cartProducts]);
@@ -43,14 +62,17 @@ const Cart = () => {
 			) : (
 				<p className={s.emptyCart}>Корзина пуста</p>
 			)}
-			<form className={s.wrapper}>
+			<form className={cn(s.wrapper, 'form')} onSubmit={handleSubmit}>
 				<input
 					className={s.input}
-					type='text'
-					id='phoneNumber'
+					type='tel'
+					pattern='[\+]\d{1}\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}'
+					minLength={18}
+					maxLength={18}
+					required
 					value={phoneNumber}
 					onChange={handlePhoneNumberChange}
-					placeholder='+7 (__) ___ __-__'
+					placeholder={PHONE_MASK}
 				/>
 				<Button className={s.button} disabled={isEmptyCart}>
 					заказать

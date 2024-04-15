@@ -101,6 +101,10 @@
 	}
 }
 
+.input:user-invalid {
+	outline: 2px solid red;
+}
+
 .button {
 	width: 268px;
 }

@@ -5,3 +5,6 @@ export const getCartProduct = (state: StateSchema) =>
 
 export const getTotalPrice = (state: StateSchema) =>
 	state.cartReducer.totalPrice;
+
+export const getPhoneNumber = (state: StateSchema) =>
+	state.cartReducer.phoneNumber;
